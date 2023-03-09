@@ -123,27 +123,31 @@ minusplus = (e) => {if (screen.value < 0) { return -screen.value;
 
 equal = (e) => {         // ²     √     ÷
     const operators = /[%\u00b2\u221a\u00f7x\-+]/g;
-    const split = screen.value.split(operators);
-    const usedOperators = screen.value.match(operators);
+    const split = screen.value.split(operators); // ex for(1+2+3-4): [0]1 [1]2 [2]3 [3]4
+    const usedOperators = screen.value.match(operators); // ex for(1+2+3-4): [0]+ [1]+ [2]- 
+    let result = parseFloat(split[0]); // ex for(1+2+3-4): result === 1
 
-    let result;
+    for (let arrayPosition = 0; arrayPosition <= split.length; arrayPosition++) {
+        let numbers = parseFloat(split[arrayPosition + 1]);
 
-    switch(usedOperators[0]){
+        switch (usedOperators[arrayPosition]) {
 
-        case "%": result = split[0]*100/split[1]+'%';
-            break;
-        case "²": result = split[0]**2;
-            break;
-        case "√": result = Math.sqrt(split[0]);
-            break;
-        case "÷": result = split[0]/split[1];
-            break;
-        case "x": result = split[0]*split[1];
-            break;
-        case "-": result = split[0]-split[1];
-            break;
-        case "+": result = parseFloat(split[0])+ parseFloat(split[1]);
-            break;
+            case "%": result *= 100 / numbers;
+                break;
+            case "²": result **= 2;
+                break;
+            case "√": result = Math.sqrt(result);
+                break;
+            case "÷": result /= numbers;
+                break;
+            case "x": result *= numbers;
+                break;
+            case "-": result -= numbers;
+                break;
+            case "+": result += numbers;
+                break;
+        }
+
     }
-    return parseFloat(result);
+    return result;
 };
