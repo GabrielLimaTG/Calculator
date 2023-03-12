@@ -49,7 +49,7 @@ td{
 
 a{
 	text-decoration: none;
-	margin: auto;
+	margin: 0 auto;
 	color: rgb(255, 194, 63);
 	font-weight: 400;
 	text-shadow: 1px 1px 1px;
@@ -60,6 +60,7 @@ footer{
 	width: 100%;
 	height: 80px;
 	display: flex;
+	align-items: end;
 	font-size: 30px;
 	position: absolute;
 	bottom: 0;
