@@ -104,7 +104,7 @@ operations = (e) => {
             break;
         case "+-": screen.value = minusplus(e);
             break;
-        case "=": screen.value = equal(e);
+        case "=": screen.value = parseFloat(equal(e));
             break;
     };
 }
@@ -153,5 +153,5 @@ equal = (e) => {         // ²     √     ÷
         }
         calculate++;
     }
-    return result;
+    return result.toFixed(11);
 };
