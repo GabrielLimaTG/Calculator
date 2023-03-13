@@ -121,16 +121,19 @@ minusplus = (e) => {if (screen.value < 0) { return -screen.value;
         } else return -screen.value;
         };
 
-equal = (e) => {         // ²     √     ÷
+equal = (e) => {         // ²     √     ÷    
     const operators = /[%\u00b2\u221a\u00f7x\-+]/g;
     const split = screen.value.split(operators); // ex for(1+2+3-4): [0]1 [1]2 [2]3 [3]4
     const usedOperators = screen.value.match(operators); // ex for(1+2+3-4): [0]+ [1]+ [2]- 
     let result = parseFloat(split[0]); // ex for(1+2+3-4): result === 1
+    let calculate = 0;
+
+    if (/\W/.test(screen.value.charAt(0))) { split.shift(); result = parseFloat(-split[0]); calculate = 1; }
 
     for (let arrayPosition = 0; arrayPosition <= split.length; arrayPosition++) {
         let numbers = parseFloat(split[arrayPosition + 1]);
 
-        switch (usedOperators[arrayPosition]) {
+        switch (usedOperators[calculate]) {
 
             case "%": result *= 100 / numbers;
                 break;
@@ -146,8 +149,9 @@ equal = (e) => {         // ²     √     ÷
                 break;
             case "+": result += numbers;
                 break;
+            default: break;
         }
-
+        calculate++;
     }
     return result;
 };
